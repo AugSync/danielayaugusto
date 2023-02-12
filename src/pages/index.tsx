@@ -1,6 +1,8 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { Meta } from '@/layouts/Meta';
+import wifeImg from '@/public/assets/images/wife.jpg';
 import { Main } from '@/templates/Main';
 
 const Index = () => {
@@ -15,6 +17,7 @@ const Index = () => {
         />
       }
     >
+      <Image src={wifeImg} alt="Picture of the author" width={500} height={500} />
       <a href="https://github.com/ixartz/Next-js-Boilerplate">
         <img
           src={`${router.basePath}/assets/images/nextjs-starter-banner.png`}
@@ -28,13 +31,13 @@ const Index = () => {
         <span role="img" aria-label="rocket">
           🚀
         </span>{' '}
-        Next.js Boilerplate is a starter code for your Next js project by
-        putting developer experience first .{' '}
+        Next.js Boilerplate is a starter code for your Next js project by putting developer
+        experience first .{' '}
         <span role="img" aria-label="zap">
           ⚡️
         </span>{' '}
-        Made with Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged,
-        VSCode, Netlify, PostCSS, Tailwind CSS.
+        Made with Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, VSCode, Netlify,
+        PostCSS, Tailwind CSS.
       </p>
       <h3 className="text-lg font-semibold">Next js Boilerplate Features</h3>
       <p>Developer experience first:</p>
@@ -103,8 +106,8 @@ const Index = () => {
           <span role="img" aria-label="no_entry_sign">
             🗂
           </span>{' '}
-          VSCode configuration: Debug, Settings, Tasks and extension for
-          PostCSS, ESLint, Prettier, TypeScript
+          VSCode configuration: Debug, Settings, Tasks and extension for PostCSS, ESLint, Prettier,
+          TypeScript
         </li>
         <li>
           <span role="img" aria-label="robot">
@@ -116,10 +119,7 @@ const Index = () => {
           <span role="img" aria-label="robot">
             ⚙️
           </span>{' '}
-          <a
-            href="https://www.npmjs.com/package/@next/bundle-analyzer"
-            rel="nofollow"
-          >
+          <a href="https://www.npmjs.com/package/@next/bundle-analyzer" rel="nofollow">
             Bundler Analyzer
           </a>
         </li>
@@ -170,14 +170,10 @@ const Index = () => {
       </ul>
       <p>
         Check our GitHub project for more information about{' '}
-        <a href="https://github.com/ixartz/Next-js-Boilerplate">
-          Nextjs Boilerplate
-        </a>
-        . You can also browse our{' '}
-        <a href="https://creativedesignsguru.com/category/nextjs/">
-          Premium NextJS Templates
-        </a>{' '}
-        on our website to support this project.
+        <a href="https://github.com/ixartz/Next-js-Boilerplate">Nextjs Boilerplate</a>. You can also
+        browse our{' '}
+        <a href="https://creativedesignsguru.com/category/nextjs/">Premium NextJS Templates</a> on
+        our website to support this project.
       </p>
     </Main>
   );
