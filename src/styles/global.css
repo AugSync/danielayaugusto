@@ -19,3 +19,13 @@ a:hover {
 .content ul {
   @apply my-6;
 }
+
+img {
+  object-fit: cover;
+  object-position: top;
+}
+
+*,
+html {
+  scroll-behavior: smooth !important;
+}
