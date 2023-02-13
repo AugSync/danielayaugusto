@@ -17,10 +17,10 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }: { params: { guest: string } }) {
   const data: { allEvents: TWeddingEvent[]; landing: TWeddingLanding; guest: TWeddingGuest } =
     await request({
-      query: `${QUERIES.GET_LANDING} ${QUERIES.GET_EVENTS} ${QUERIES.GET_GUEST('augusto-barco')}`,
+      query: `${QUERIES.GET_LANDING} ${QUERIES.GET_EVENTS} ${QUERIES.GET_GUEST(params.guest)}`,
       variables: { limit: 10 },
     });
 
