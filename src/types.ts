@@ -11,6 +11,7 @@ export type TWeddingEvent = {
 export type TWeddingLanding = {
   confirmationPlaceHolder: string;
   confirmationText: string;
+  attendingText: string;
   date: string;
   detailsText: string;
   locality: string;

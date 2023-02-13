@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Image as DatoImage } from 'react-datocms';
 
 import Arrow from '@/icons/Arrow';
@@ -15,7 +16,53 @@ const WeddingLanding = ({
   landing: TWeddingLanding;
   guest?: TWeddingGuest;
 }) => {
+  const [showInputCode, setShowInputCode] = useState(false);
+  const [invitationCode, setInvitationCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const [isInvited, setIsInvited] = useState(guest?.attending);
+
   const router = useRouter();
+
+  const handleConfirmCode = async ({ code, id }: { code: string; id?: string }) => {
+    const data = {
+      invitationCode: code,
+      id,
+    };
+
+    const JSONdata = JSON.stringify(data);
+
+    const endpoint = '/api/update-guest';
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSONdata,
+    };
+
+    const response = await fetch(endpoint, options);
+
+    const result = await response.json();
+
+    if (response.ok) {
+      setIsInvited(true);
+    } else {
+      setErrorMessage(result.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (invitationCode.length === 4) {
+      setLoading(true);
+      setErrorMessage('');
+
+      handleConfirmCode({ code: invitationCode, id: guest?.id });
+    }
+  }, [invitationCode]);
 
   return (
     <div className="md:flex">
@@ -70,9 +117,32 @@ const WeddingLanding = ({
               {guest.invitation}
             </p>
 
-            <button className="mt-4 w-4/6 rounded-lg bg-augdi py-2 px-4 font-arimaMadurai text-sm font-bold text-white hover:bg-cyan-800 xl:text-base">
-              {landing.confirmationText}
-            </button>
+            {showInputCode && !isInvited ? (
+              <>
+                <input
+                  className={`mt-4 w-4/6 rounded-lg border-2 ${
+                    errorMessage ? 'border-red-700 text-red-700' : 'border-augdi text-augdi'
+                  } py-2 px-4 text-center font-arimaMadurai text-sm font-bold  outline-0  xl:text-base`}
+                  placeholder={landing.confirmationPlaceHolder}
+                  onChange={(e) => setInvitationCode(e.target.value)}
+                  maxLength={4}
+                  disabled={loading}
+                ></input>
+                {errorMessage ? <p className="mt-1 text-xs text-red-700">{errorMessage}</p> : null}
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  setShowInputCode(true);
+                }}
+                className={`mt-4 w-4/6 rounded-lg bg-augdi py-2 px-4 font-arimaMadurai text-sm font-bold text-white ${
+                  isInvited ? '' : 'hover:bg-cyan-800'
+                } xl:text-base`}
+                disabled={isInvited}
+              >
+                {isInvited ? landing.attendingText : landing.confirmationText}
+              </button>
+            )}
 
             <button
               onClick={() => router.push('#schedule')}

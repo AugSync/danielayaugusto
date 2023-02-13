@@ -9,6 +9,7 @@ const QUERIES = {
   GET_LANDING: `landing {
     confirmationPlaceHolder
     confirmationText
+    attendingText
     date
     detailsText
     locality
@@ -44,6 +45,7 @@ const QUERIES = {
     moon
     invitation
     invitationUrl
+    attending
     id
   }`,
 };
