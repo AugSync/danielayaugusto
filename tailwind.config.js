@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -15,6 +16,11 @@ module.exports = {
       '6xl': '4rem',
     },
     extend: {
+      fontFamily: {
+        parisienne: ['var(--font-parisienne)'],
+        cormorant: ['var(--font-cormorant)'],
+        arimaMadurai: ['var(--font-arimaMadurai)'],
+      },
       colors: {
         gray: {
           100: '#f7fafc',
@@ -39,6 +45,7 @@ module.exports = {
           900: '#2a4365',
         },
         cardboard: '#FFF9ED',
+        augdi: '#01999E',
       },
     },
   },
