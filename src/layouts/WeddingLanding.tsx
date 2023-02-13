@@ -6,9 +6,15 @@ import { Image as DatoImage } from 'react-datocms';
 import Arrow from '@/icons/Arrow';
 import flowerOne from '@/public/assets/images/flower-1.png';
 import flowerTwo from '@/public/assets/images/flower-2.png';
-import type { TWeddingLanding } from '@/types';
+import type { TWeddingGuest, TWeddingLanding } from '@/types';
 
-const WeddingLanding = ({ landing }: { landing: TWeddingLanding }) => {
+const WeddingLanding = ({
+  landing,
+  guest,
+}: {
+  landing: TWeddingLanding;
+  guest?: TWeddingGuest;
+}) => {
   const router = useRouter();
 
   return (
@@ -55,23 +61,28 @@ const WeddingLanding = ({ landing }: { landing: TWeddingLanding }) => {
           24 días, 14 horas, 36 minutos, 78 segundos
         </p>
 
-        <div className="my-10 w-4/6 bg-augdi" style={{ height: 1 }}></div>
+        {guest ? (
+          <>
+            <div className="my-10 w-4/6 bg-augdi" style={{ height: 1 }}></div>
 
-        <p className={'w-3/6 font-arimaMadurai text-base font-thin xl:text-xl'}>
-          <span className="font-bold text-augdi">{'Yusmila'}</span>, {landing.singleInvitation}
-        </p>
+            <p className={'w-3/6 font-arimaMadurai text-base font-thin xl:text-xl'}>
+              <span className="font-bold text-augdi">{guest.name}</span>
+              {guest.invitation}
+            </p>
 
-        <button className="mt-4 w-4/6 rounded-lg bg-augdi py-2 px-4 font-arimaMadurai text-sm font-bold text-white hover:bg-cyan-800 xl:text-base">
-          {landing.confirmationText}
-        </button>
+            <button className="mt-4 w-4/6 rounded-lg bg-augdi py-2 px-4 font-arimaMadurai text-sm font-bold text-white hover:bg-cyan-800 xl:text-base">
+              {landing.confirmationText}
+            </button>
 
-        <button
-          onClick={() => router.push('#schedule')}
-          className="mt-10 flex flex-col items-center justify-center font-arimaMadurai text-sm font-black xl:text-base"
-        >
-          {landing.detailsText}
-          <Arrow />
-        </button>
+            <button
+              onClick={() => router.push('#schedule')}
+              className="mt-10 flex flex-col items-center justify-center font-arimaMadurai text-sm font-black xl:text-base"
+            >
+              {landing.detailsText}
+              <Arrow />
+            </button>
+          </>
+        ) : null}
 
         <Image
           src={flowerTwo}

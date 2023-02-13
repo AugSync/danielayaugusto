@@ -2,9 +2,9 @@ import Image from 'next/image';
 
 import flowerThree from '@/public/assets/images/flower-3.png';
 import flowerFour from '@/public/assets/images/flower-4.png';
-import type { TWeddingEvent } from '@/types';
+import type { TWeddingEvent, TWeddingGuest } from '@/types';
 
-const WeddingSchedule = ({ events }: { events: TWeddingEvent[] }) => {
+const WeddingSchedule = ({ events, guest }: { events: TWeddingEvent[]; guest: TWeddingGuest }) => {
   return (
     <div
       id="schedule"
@@ -17,17 +17,19 @@ const WeddingSchedule = ({ events }: { events: TWeddingEvent[] }) => {
           .sort((a, b) => {
             return a.order - b.order;
           })
-          .map(({ title, subtitle, descriptionHtml }, index) => (
-            <article key={index} className="mt-6 w-full text-left">
-              <p className={'w-full font-parisienne text-2xl text-augdi lg:text-4xl'}>{title}</p>
-              <p className={'w-full font-cormorant text-lg font-normal lg:text-xl'}>{subtitle}</p>
+          .map(({ title, subtitle, description, idEvent }, index) =>
+            guest[idEvent] ? (
+              <article key={index} className={`mb-6 w-full text-left `}>
+                <p className={'w-full font-parisienne text-2xl text-augdi lg:text-4xl'}>{title}</p>
+                <p className={'w-full font-cormorant text-lg font-normal lg:text-xl'}>{subtitle}</p>
 
-              <div
-                className={'mt-4 flex flex-col gap-4 font-arimaMadurai text-base font-thin'}
-                dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-              />
-            </article>
-          ))}
+                <div
+                  className={'mt-4 flex flex-col gap-4 font-arimaMadurai text-base font-thin'}
+                  dangerouslySetInnerHTML={{ __html: description }}
+                />
+              </article>
+            ) : null
+          )}
       </div>
 
       <Image

@@ -1,12 +1,12 @@
 const QUERIES = {
-  GET_LANDING_PAGE: `query GetEvents {
-  allEvents {
+  GET_EVENTS: `allEvents {
     title
     subtitle
-    description
+    description(markdown: true)
+    idEvent
     order
-  }
-  landing {
+  }`,
+  GET_LANDING: `landing {
     confirmationPlaceHolder
     confirmationText
     date
@@ -15,7 +15,7 @@ const QUERIES = {
     multiInvitations
     singleInvitation
     weddingPhrase
-    weddingName
+    weddingName(markdown: true)
     photo {
       responsiveImage(imgixParams: {fm: jpg, fit: max, w: 1920, h: 1080}) {
         srcSet
@@ -30,8 +30,22 @@ const QUERIES = {
         base64
       }
     }
-  }
-}`,
+  }`,
+  GET_GUESTS: `allGuests {
+    id
+    invitationUrl
+  }`,
+  GET_GUEST: (url: string) => `guest(filter: {invitationUrl: {eq: "${url}"}}) {
+    name
+    numberOfInvites
+    share
+    photos
+    speech
+    moon
+    invitation
+    invitationUrl
+    id
+  }`,
 };
 
 export default QUERIES;

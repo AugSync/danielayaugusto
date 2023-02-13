@@ -3,6 +3,7 @@ export type TWeddingEvent = {
   subtitle: string;
   description: string;
   order: number;
+  idEvent: 'speech' | 'moon' | 'share' | 'photos';
 
   descriptionHtml: string;
 };
@@ -31,4 +32,18 @@ export type TWeddingLanding = {
       base64: string;
     };
   };
+};
+
+export type TWeddingGuest = {
+  id: string;
+  invitation: string;
+  invitationCode: number;
+  invitationUrl: string;
+  name: string;
+  numberOfInvites: number;
+  share: boolean;
+  photos: boolean;
+  speech: boolean;
+  moon: boolean;
+  attending: boolean;
 };

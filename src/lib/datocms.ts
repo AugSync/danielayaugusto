@@ -22,7 +22,7 @@ function request({
     headers['X-Exclude-Invalid'] = 'true';
   }
   const client = new GraphQLClient('https://graphql.datocms.com', { headers });
-  return client.request(query, variables);
+  return client.request(`query MyQuery {${query}}`, variables);
 }
 
 export default request;
