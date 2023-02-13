@@ -14,7 +14,7 @@ const WeddingLanding = () => {
           alt="Picture of the author"
           width={1920}
           height={1080}
-          className="h-screen w-full object-cover"
+          className="h-screen w-full object-cover object-top"
         />
         <div className="absolute bottom-0 h-3/5 w-full items-center bg-gradient-to-t from-black to-transparent p-10">
           <p
