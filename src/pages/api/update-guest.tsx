@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (guest && guest.id === req.body.id) {
         const httpClient = buildClient({ apiToken: `${process.env.NEXT_DATOCMS_API_TOKEN}` });
-        const itemId = '121207848';
+        const itemId = req.body.id;
         const item = await httpClient.items.update(itemId, {
           // we just pass the field that we want to change
           attending: true,
