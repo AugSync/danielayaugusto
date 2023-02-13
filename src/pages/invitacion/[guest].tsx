@@ -14,7 +14,7 @@ export async function getStaticPaths() {
     params: { guest: invitationUrl },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 }
 
 export async function getStaticProps({ params }: { params: { guest: string } }) {

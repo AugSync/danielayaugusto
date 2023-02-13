@@ -18,7 +18,7 @@ const WeddingSchedule = ({ events, guest }: { events: TWeddingEvent[]; guest: TW
             return a.order - b.order;
           })
           .map(({ title, subtitle, description, idEvent }, index) =>
-            guest[idEvent] ? (
+            guest?.[idEvent] ? (
               <article key={index} className={`mb-6 w-full text-left `}>
                 <p className={'w-full font-parisienne text-2xl text-augdi lg:text-4xl'}>{title}</p>
                 <p className={'w-full font-cormorant text-lg font-normal lg:text-xl'}>{subtitle}</p>
