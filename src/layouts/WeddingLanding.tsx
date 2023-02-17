@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import { Image as DatoImage } from 'react-datocms';
 
+import { useCountdown } from '@/hooks/useCountdown';
 import Arrow from '@/icons/Arrow';
 import flowerOne from '@/public/assets/images/flower-1.png';
 import flowerTwo from '@/public/assets/images/flower-2.png';
@@ -23,6 +26,8 @@ const WeddingLanding = ({
   const [invitationCode, setInvitationCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const [days, hours, minutes, seconds] = useCountdown(landing.date);
 
   const [isInvited, setIsInvited] = useState(guest?.attending);
 
@@ -107,10 +112,14 @@ const WeddingLanding = ({
           {landing.locality}
         </p>
         <p className={'w-5/6 font-arimaMadurai text-base font-thin xl:text-xl'}>
-          Sábado, Febrero 26, 2023
+          {format(new Date(landing.date), 'EEEE, PPP', { locale: es })}
         </p>
         <p className={'w-5/6 font-arimaMadurai text-base font-normal xl:text-xl'}>
-          24 días, 14 horas, 36 minutos, 78 segundos
+          {`${days} ${days === 1 ? 'día' : 'días'}, ${hours} ${
+            hours === 1 ? 'hora' : 'horas'
+          }, ${minutes} ${minutes === 1 ? 'minuto' : 'minutos'}, ${seconds} ${
+            seconds === 1 ? 'segundo' : 'segundos'
+          }`}
         </p>
 
         {guest ? (
