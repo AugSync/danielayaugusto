@@ -72,7 +72,8 @@ const WeddingLanding = ({
             ...landing.photo.responsiveImage,
             alt: `Wedding photo`,
           }}
-          className="h-screen w-full"
+          className="static h-screen w-full border border-red-400"
+          pictureClassName="object-cover object-center"
         />
         <div className="absolute bottom-0 h-3/5 w-full items-center bg-gradient-to-t from-black to-transparent p-10">
           <div
