@@ -20,6 +20,22 @@ a:hover {
   @apply my-6;
 }
 
+img {
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 *,
 html {
   scroll-behavior: smooth !important;

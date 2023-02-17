@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import WeddingLanding from '@/layouts/WeddingLanding';
 import WeddingSchedule from '@/layouts/WeddingSchedule';
 import request from '@/lib/datocms';
@@ -39,11 +41,13 @@ const Wedding = ({
   landing: TWeddingLanding;
   guest: TWeddingGuest;
 }) => {
+  const [isOpenedSchedule, setIsOpenedSchedule] = useState(false);
+
   return (
     <article>
-      <WeddingLanding landing={landing} guest={guest} />
+      <WeddingLanding landing={landing} guest={guest} setIsOpenedSchedule={setIsOpenedSchedule} />
 
-      <WeddingSchedule events={events} guest={guest} />
+      <WeddingSchedule events={events} guest={guest} isOpenedSchedule={isOpenedSchedule} />
     </article>
   );
 };

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import { Image as DatoImage } from 'react-datocms';
 
@@ -12,9 +13,11 @@ import type { TWeddingGuest, TWeddingLanding } from '@/types';
 const WeddingLanding = ({
   landing,
   guest,
+  setIsOpenedSchedule,
 }: {
   landing: TWeddingLanding;
   guest?: TWeddingGuest;
+  setIsOpenedSchedule?: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [showInputCode, setShowInputCode] = useState(false);
   const [invitationCode, setInvitationCode] = useState('');
@@ -73,8 +76,8 @@ const WeddingLanding = ({
             alt: `Wedding photo`,
           }}
           className="static h-screen w-full"
-          pictureClassName="object-cover object-center w-full"
-          placeholderClassName="w-full"
+          pictureClassName="object-cover object-center w-full h-screen"
+          placeholderClassName="w-full h-screen"
         />
         <div className="absolute bottom-0 h-3/5 w-full items-center bg-gradient-to-t from-black to-transparent p-10">
           <div
@@ -147,7 +150,10 @@ const WeddingLanding = ({
             )}
 
             <button
-              onClick={() => router.push('#schedule')}
+              onClick={() => {
+                setIsOpenedSchedule?.(true);
+                router.push('#schedule');
+              }}
               className="mt-10 flex flex-col items-center justify-center font-arimaMadurai text-sm font-black xl:text-base"
             >
               {landing.detailsText}
