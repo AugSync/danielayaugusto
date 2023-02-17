@@ -7,7 +7,7 @@ function request({
   excludeInvalid,
 }: {
   query: string;
-  variables: { [key: number | string]: number | string };
+  variables?: { [key: number | string]: number | string };
   includeDrafts?: unknown;
   excludeInvalid?: unknown;
 }) {

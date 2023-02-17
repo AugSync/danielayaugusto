@@ -6,12 +6,11 @@ import type { TWeddingEvent, TWeddingLanding } from '@/types';
 export async function getStaticProps() {
   const data: { landing: TWeddingLanding } = await request({
     query: `${QUERIES.GET_LANDING} ${QUERIES.GET_EVENTS}`,
-    variables: { limit: 10 },
   });
 
   return {
     props: { landing: { ...data.landing } },
-    revalidate: 10,
+    revalidate: 1,
   };
 }
 

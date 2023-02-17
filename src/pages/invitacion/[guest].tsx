@@ -9,7 +9,6 @@ import type { TWeddingEvent, TWeddingGuest, TWeddingLanding } from '@/types';
 export async function getStaticPaths() {
   const data: { allGuests: TWeddingGuest[] } = await request({
     query: `${QUERIES.GET_GUESTS}`,
-    variables: { limit: 10 },
   });
 
   const paths = data.allGuests.map(({ invitationUrl }) => ({
@@ -23,12 +22,11 @@ export async function getStaticProps({ params }: { params: { guest: string } }) 
   const data: { allEvents: TWeddingEvent[]; landing: TWeddingLanding; guest: TWeddingGuest } =
     await request({
       query: `${QUERIES.GET_LANDING} ${QUERIES.GET_EVENTS} ${QUERIES.GET_GUEST(params.guest)}`,
-      variables: { limit: 10 },
     });
 
   return {
     props: { events: data.allEvents, landing: data.landing, guest: data.guest },
-    revalidate: 10,
+    revalidate: 1,
   };
 }
 
