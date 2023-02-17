@@ -20,11 +20,6 @@ a:hover {
   @apply my-6;
 }
 
-img {
-  object-fit: cover;
-  object-position: top;
-}
-
 *,
 html {
   scroll-behavior: smooth !important;
