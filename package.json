@@ -20,7 +20,8 @@
     "e2e:headless": "start-server-and-test dev http://localhost:3000 cypress:headless",
     "prepare": "husky install",
     "postbuild": "next-sitemap",
-    "seed": "cross-env ANALYZE=true node ./src/scripts/run-seed.js"
+    "seed": "node ./src/scripts/run-seed.js",
+    "invits": "node ./src/scripts/get-invits.js"
   },
   "dependencies": {
     "@datocms/cma-client-node": "^1.2.3",
