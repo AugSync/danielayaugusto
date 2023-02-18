@@ -6,15 +6,12 @@ import { useRouter } from 'next/router';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import { Image as DatoImage } from 'react-datocms';
-import useSWR from 'swr';
 
 import { useCountdown } from '@/hooks/useCountdown';
 import Arrow from '@/icons/Arrow';
 import flowerOne from '@/public/assets/images/flower-1.png';
 import flowerTwo from '@/public/assets/images/flower-2.png';
 import type { TWeddingGuest, TWeddingLanding } from '@/types';
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 const WeddingLanding = ({
   landing,
@@ -25,8 +22,6 @@ const WeddingLanding = ({
   guest?: TWeddingGuest;
   setIsOpenedSchedule?: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const { data: guestRealtimeData } = useSWR(`/api/get-guest/${guest?.id}`, fetcher);
-
   const [showInputCode, setShowInputCode] = useState(false);
   const [invitationCode, setInvitationCode] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,6 +30,10 @@ const WeddingLanding = ({
   const [days, hours, minutes, seconds] = useCountdown(landing.date);
 
   const [isInvited, setIsInvited] = useState(guest?.attending);
+
+  useEffect(() => {
+    setIsInvited(guest?.attending);
+  }, [guest?.attending]);
 
   const router = useRouter();
 
@@ -76,10 +75,6 @@ const WeddingLanding = ({
       handleConfirmCode({ code: invitationCode, id: guest?.id });
     }
   }, [invitationCode]);
-
-  useEffect(() => {
-    setIsInvited(guestRealtimeData?.guest?.attending);
-  }, [guestRealtimeData?.guest?.attending]);
 
   return (
     <div className="md:flex">
@@ -161,7 +156,7 @@ const WeddingLanding = ({
                 className={`mt-4 w-4/6 rounded-lg bg-augdi py-2 px-4 font-arimaMadurai text-sm font-bold text-white ${
                   isInvited ? '' : 'hover:bg-cyan-800'
                 } xl:text-base`}
-                disabled={isInvited || !guestRealtimeData}
+                disabled={isInvited}
               >
                 {isInvited ? landing.attendingText : landing.confirmationText}
               </button>

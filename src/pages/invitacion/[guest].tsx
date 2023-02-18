@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
 import WeddingLanding from '@/layouts/WeddingLanding';
 import WeddingSchedule from '@/layouts/WeddingSchedule';
 import request from '@/lib/datocms';
 import QUERIES from '@/lib/queries';
 import type { TWeddingEvent, TWeddingGuest, TWeddingLanding } from '@/types';
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export async function getStaticPaths() {
   const data: { allGuests: TWeddingGuest[] } = await request({
@@ -38,13 +41,28 @@ const Wedding = ({
   landing: TWeddingLanding;
   guest: TWeddingGuest;
 }) => {
+  const [guestData, setGuestData] = useState(guest);
+  const { data: guestRealtimeData } = useSWR(`/api/get-guest/${guest?.id}`, fetcher);
+
+  useEffect(() => {
+    setGuestData(guestRealtimeData?.guest);
+  }, [guestRealtimeData?.guest]);
+
   const [isOpenedSchedule, setIsOpenedSchedule] = useState(false);
 
   return (
     <article>
-      <WeddingLanding landing={landing} guest={guest} setIsOpenedSchedule={setIsOpenedSchedule} />
+      <WeddingLanding
+        landing={landing}
+        guest={guestData ?? guest}
+        setIsOpenedSchedule={setIsOpenedSchedule}
+      />
 
-      <WeddingSchedule events={events} guest={guest} isOpenedSchedule={isOpenedSchedule} />
+      <WeddingSchedule
+        events={events}
+        guest={guestData ?? guest}
+        isOpenedSchedule={isOpenedSchedule}
+      />
     </article>
   );
 };
