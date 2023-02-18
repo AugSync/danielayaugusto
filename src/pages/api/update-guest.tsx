@@ -13,13 +13,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const client = new GraphQLClient('https://graphql.datocms.com', { headers });
       const { guest } = await client.request(
         `query MyQuery {
-          guest(filter: {invitationCode: {eq: "${req.body.invitationCode}"}}) {
+          guest(filter: {id: {eq: "${req.body.id}"}, invitationCode: {eq: "${req.body.invitationCode}"}}) {
             id
           }
         }`
       );
 
-      if (guest && guest.id === req.body.id) {
+      if (guest) {
         const httpClient = buildClient({ apiToken: `${process.env.NEXT_DATOCMS_API_TOKEN}` });
         const itemId = req.body.id;
         const item = await httpClient.items.update(itemId, {
