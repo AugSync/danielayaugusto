@@ -15,6 +15,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (login && password && login === auth.login && password === auth.password) {
     // Access granted...
     if (!req.body?.previous_entity.attributes.attending && req.body?.entity.attributes.attending) {
+      await fetch(
+        'https://api.telegram.org/bot6012018939:AAEOB6Jm4GroUgZ-f6to6lz4vSuiSoJoYwM/sendMessage',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: process.env.CHAT_DANIELA,
+            text: `<b>${req.body.entity.attributes.name}</b> ha confirmado la invitación
+          
+<b>Numero de invitados:</b> ${req.body.entity.attributes.number_of_invites}
+<b>Discurso biblico:</b> ${req.body.entity.attributes.speech ? 'Sí asistirá' : 'No asistirá'}
+<b>Sesion de fotos:</b> ${req.body.entity.attributes.photos ? 'Sí asistirá' : 'No asistirá'}
+<b>Compartir:</b> ${req.body.entity.attributes.share ? 'Sí asistirá' : 'No asistirá'}`,
+            parse_mode: 'HTML',
+          }),
+        }
+      );
       const rawResponse = await fetch(
         'https://api.telegram.org/bot6012018939:AAEOB6Jm4GroUgZ-f6to6lz4vSuiSoJoYwM/sendMessage',
         {
@@ -24,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            chat_id: process.env.CHATS_TO_UPDATE,
+            chat_id: process.env.CHAT_AUGUSTO,
             text: `<b>${req.body.entity.attributes.name}</b> ha confirmado la invitación
           
 <b>Numero de invitados:</b> ${req.body.entity.attributes.number_of_invites}
