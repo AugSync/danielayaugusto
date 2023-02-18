@@ -36,7 +36,8 @@ ${_.trim(name)}, ${
 
 ${url_completa?.replace('danielayaugusto.vercel.app', 'augustoydaniela.com')}
 
-Código de invitación: ${invitation_code}
+Por favor, entre en la URL, presione el botón "Confirme asistencia"
+ y confirme su invitación utilizando el siguiente código: ${invitation_code}
     `
       );
     }
