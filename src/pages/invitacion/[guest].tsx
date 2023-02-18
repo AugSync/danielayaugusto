@@ -26,7 +26,7 @@ export async function getStaticProps({ params }: { params: { guest: string } }) 
 
   return {
     props: { events: data.allEvents, landing: data.landing, guest: data.guest },
-    revalidate: 1,
+    revalidate: 10,
   };
 }
 

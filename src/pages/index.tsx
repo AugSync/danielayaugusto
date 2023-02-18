@@ -10,7 +10,7 @@ export async function getStaticProps() {
 
   return {
     props: { landing: { ...data.landing } },
-    revalidate: 1,
+    revalidate: 10,
   };
 }
 
