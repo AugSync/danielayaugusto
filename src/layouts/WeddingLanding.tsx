@@ -161,7 +161,7 @@ const WeddingLanding = ({
                 className={`mt-4 w-4/6 rounded-lg bg-augdi py-2 px-4 font-arimaMadurai text-sm font-bold text-white ${
                   isInvited ? '' : 'hover:bg-cyan-800'
                 } xl:text-base`}
-                disabled={isInvited}
+                disabled={isInvited || !guestRealtimeData}
               >
                 {isInvited ? landing.attendingText : landing.confirmationText}
               </button>
