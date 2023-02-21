@@ -9,7 +9,12 @@ const getReturnValues = (
   const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
 
-  return [days, hours, minutes, seconds];
+  return [
+    days < 0 ? 0 : days,
+    hours < 0 ? 0 : hours,
+    minutes < 0 ? 0 : minutes,
+    seconds < 0 ? 0 : seconds,
+  ];
 };
 
 const useCountdown = (

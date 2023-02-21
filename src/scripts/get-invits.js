@@ -13,6 +13,7 @@ const client = buildClient({ apiToken: process.env.NEXT_DATOCMS_API_TOKEN });
 
 async function run() {
   fs.unlinkSync(path.resolve(__dirname, '../../', `invits.txt`));
+  let shareTotalInvits = 0;
 
   // this iterates over every page of results:
   for await (const {
@@ -20,9 +21,13 @@ async function run() {
     number_of_invites,
     invitation_code,
     url_completa,
+    share,
+    foreign,
   } of client.items.listPagedIterator()) {
     if (name) {
       console.log({ name, number_of_invites, invitation_code, url_completa });
+
+      if (share && !foreign) shareTotalInvits += number_of_invites;
 
       fs.appendFileSync(
         path.resolve(__dirname, '../../', `invits.txt`),
@@ -42,6 +47,8 @@ Por favor, entre en la URL, presione el botón "Confirme asistencia"
       );
     }
   }
+
+  console.log({ shareTotalInvits });
 }
 
 run();
